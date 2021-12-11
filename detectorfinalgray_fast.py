@@ -111,8 +111,6 @@ class CrowVision(Node):
 
     self.cvb_ = CvBridge()
 
-      #TODO others publishers
-
     self.publisher_ = self.create_publisher(Image, 'Cropped', 10)
     timer_period = 0.5  # seconds
     #self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -146,21 +144,6 @@ class CrowVision(Node):
     self.get_logger().info("I heard: {} for topic {}".format(str(msg.height), topic))
     assert topic in self.ros, "We don't have registered listener for the topic {} !".format(topic)
     
-    #trackbar consists of the variables which have a possibility to be tuned up over external factors
-    #cv2.namedWindow('Trackbar')
-    #if y == 0:
-      #cv2.createTrackbar('BLUR','Trackbar',1,20,nothing)
-      #cv2.createTrackbar('BLUR2','Trackbar',1,20,nothing)
-      #cv2.createTrackbar('maskingThres','Trackbar',38,60,nothing)
-
-      #cv2.createTrackbar('e_low','Trackbar',76,255,nothing)
-      #cv2.createTrackbar('e_high','Trackbar',255,255,nothing)
-      #cv2.createTrackbar('e_iter','Trackbar',8,20,nothing)
-
-      #cv2.createTrackbar('cntrst','Trackbar',9,100,nothing) 
-
-      #cv2.createTrackbar('S_dil_Krnl','Trackbar',5,20,nothing)
-      #cv2.createTrackbar('S_bg_blur','Trackbar',1,20,nothing)
 
     #Assigning values to the variables based on the Slie bar's position
     BLUR = 3
@@ -184,8 +167,6 @@ class CrowVision(Node):
 
     #Initial blurring for smoothening
     img_raw = cv2.medianBlur(img_raw, BLUR)
-    #img_raw = img_raw.astype('uint8')318,
-    #cv2.imshow('First blur', img_raw)
 
     #img2 is x2 is defined and set to int16 format to be able to be utilized for subtraction in the integer number line
     img2 = img_raw.astype('int16') 
@@ -226,7 +207,6 @@ class CrowVision(Node):
 
     #Shadow removal and smoothening
     bg_sub1 = shadow_out(bg_sub1, dil, bg_blur)
-
 
     edged1 = edgedetect(bg_sub1, e_low, e_high,e_iter)
 
